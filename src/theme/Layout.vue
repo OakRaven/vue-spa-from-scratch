@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <nav class="nav has-shadow">
-      <div class="container">
-        <a href="/">
-          <img src="http://bstavroulakis.com/pluralsight/courses/vue-spa/logo.png" alt="Vue SPA" />
-        </a>
+    <app-header></app-header>
+    <section class="main-section section">
+      <div class="container content">
+        <category></category>
       </div>
-    </nav>
-    <section class="main-section section"></section>
-    <footer class="footer">
-      <div class="container">
-        <div class="content has-text-centered">
-          Follow us on
-          <a href="https://twitter.com/beingmikeh" target="_blank">Twitter</a>
-        </div>
-      </div>
-    </footer>
+    </section>
+    <app-footer></app-footer>
   </div>
 </template>
 <script>
-export default {
+  import AppHeader from './AppHeader.vue'
+  import AppFooter from './AppFooter.vue'
+  import Category from './Category.vue'
 
-}
+  export default {
+    components: {
+      'app-header': AppHeader,
+      'app-footer': AppFooter,
+      'category': Category
+    }
+  }
 </script>
 <style lang="scss">
+  $primary: #287ab1;
+
   @import '~bulma';
+
+  .columns {
+    flex-wrap: wrap
+  }
 </style>
