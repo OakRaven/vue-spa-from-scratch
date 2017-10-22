@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import AppLayout from './theme/Layout.vue'
-
-Vue.component('app', {
-  template: `
-
-  `
-})
+import router from './router'
 
 const app = new Vue({
+  router,
   ...AppLayout
 })
 
-export { app }
+export {
+  app,
+  router
+}
