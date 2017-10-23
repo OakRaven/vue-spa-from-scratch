@@ -18,7 +18,7 @@ export default {
   components: {
     'app-post': Post
   },
-  data() {
+  data () {
     return {
       id: this.$route.params.id,
       posts: []
@@ -26,7 +26,7 @@ export default {
   },
 
   methods: {
-    loadPosts() {
+    loadPosts () {
       appServer.getPosts(this.id).then(data => {
         this.posts = data
       })
@@ -34,13 +34,13 @@ export default {
   },
 
   watch: {
-    $route(to, from) {
+    $route (to, from) {
       this.id = to.params.id
       this.loadPosts()
     }
   },
 
-  created() {
+  created () {
     this.loadPosts()
     console.log(this.$route.query.page)
   }
