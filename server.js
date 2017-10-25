@@ -1,29 +1,34 @@
-/* globals process, require, __dirname */
+const express = require('express')
+const app = express()
+const fs = require('fs')
+const path = require('path')
+const { createBundleRenderer } = require('vue-server-renderer')
 
-(function () {
-  "use strict"
+let renderer
 
-  const express = require("express");
-  const app = express();
-  const fs = require("fs");
-  const path = require("path");
+const indexHTML = (() => {
+  return fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
+})()
 
-  const indexHTML = (() => {
-    return fs.readFileSync(path.resolve(__dirname, "./index.html"), "utf-8");
-  })();
+app.use('/dist', express.static(path.resolve(__dirname, './dist')))
 
-  app.use("/dist", express.static(path.resolve(__dirname, "./dist")));
+require('./build/dev-server')(app, bundle => {
+  renderer = createBundleRenderer(bundle)
+})
 
-  require("./build/dev-server")(app);
+app.get('*', (req, res) => {
+  renderer.renderToString({url: req.url}, (err, html) => {
+    if (err) {
+      return res.status(500).send('Server Error')
+    }
 
-  app.get("*", (req, res) => {
-    res.write(indexHTML);
-    res.end();
-  });
+    html = indexHTML.replace('{{ APP }}', html)
+    res.write(html)
+    res.end()
+  })
+})
 
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`server started at http://localhost:${port}`);
-  });
-
-})();
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`server started at http://localhost:${port}`)
+})
