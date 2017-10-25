@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import appService from '../app.service'
+import appService from '../app.service.js'
 import postsModule from './posts'
 
 Vue.use(Vuex)
@@ -13,33 +13,33 @@ const store = new Vuex.Store({
   modules: {
     postsModule
   },
-
   state,
-
   getters: {
-    isAuthenticated: (state) => {
+    isAuthenticated: state => {
       return state.isAuthenticated
     }
   },
-
   actions: {
     logout (context) {
       context.commit('logout')
     },
-
     login (context, credentials) {
-      return new Promise((resolve) => {
-        appService.login(credentials)
-          .then((data) => {
+      return new Promise(resolve => {
+        appService
+          .login(credentials)
+          .then(data => {
             context.commit('login', data)
 
             resolve()
           })
-          .catch(() => window.alert('Count not login!'))
+          .catch(() => {
+            if (typeof window !== 'undefined') {
+              window.alert('Could not login!')
+            }
+          })
       })
     }
   },
-
   mutations: {
     logout (state) {
       if (typeof window !== 'undefined') {
@@ -48,7 +48,6 @@ const store = new Vuex.Store({
       }
       state.isAuthenticated = false
     },
-
     login (state, token) {
       if (typeof window !== 'undefined') {
         window.localStorage.setItem('token', token.token)
