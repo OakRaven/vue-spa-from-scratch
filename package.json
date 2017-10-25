@@ -4,11 +4,15 @@
   "description": "",
   "scripts": {
     "start": "node server",
-    "test": "karma start test/unit/karma.config.js --single-run"
+    "test-single-run": "karma start test/unit/karma.config.js --single-run",
+    "test": "karma start test/unit/karma.config.js"
   },
   "keywords": [],
   "author": "Mike Hatfield <oakraven13@gmail.com>",
   "license": "MIT",
+  "standard": {
+    "globals": ["describe", "it", "expect"]
+  },
   "dependencies": {
     "axios": "^0.16.2",
     "bulma": "^0.5.1",
