@@ -1,2 +1,2 @@
 [config]
-command = build/deply.cmd
+command = build/deploy.cmd
