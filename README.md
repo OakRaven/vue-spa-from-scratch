@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/OakRaven/vue-spa-from-scratch.svg?branch=master)](https://travis-ci.org/OakRaven/vue-spa-from-scratch)
