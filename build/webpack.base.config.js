@@ -2,7 +2,8 @@ const path = require('path')
 
 const config = {
   entry: {
-    app: path.resolve(__dirname, '../src/client-entry.js')
+    app: path.resolve(__dirname, '../src/client-entry.js'),
+    vendor: ['vue', 'vue-router', 'vuex', 'axios']
   },
   module: {
     rules: [
@@ -17,7 +18,7 @@ const config = {
         loader: 'vue-loader',
         options: {
           css: 'css-loader',
-          'scss': 'css-loader|sass-loader'
+          scss: 'css-loader|sass-loader'
         }
       },
       {
